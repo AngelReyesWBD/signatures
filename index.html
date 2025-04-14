@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Generador de Firma Corporativa</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      padding: 40px 20px;
+      text-align: center;
+      color: #222;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    input {
+      display: block;
+      margin: 15px 0;
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0022af;
+      box-shadow: 0 0 0 4px rgba(0, 34, 175, 0.15);
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #0022af;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      font-size: 1em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background-color: #001c91;
+    }
+
+    canvas {
+      display: block;
+      margin: 40px auto 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 1000px;
+      height: auto;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    canvas.visible {
+      opacity: 1;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Generador de Firma Corporativa</h2>
+  
+  <form id="firmaForm">
+    <input type="text" id="fullname" placeholder="Nombre completo" required />
+    <input type="text" id="department" placeholder="Departamento" required />
+    <input type="text" id="phone" placeholder="Teléfono corporativo (opcional)" />
+    <input type="email" id="email" placeholder="Correo electrónico" required />
+    <button type="submit">Generar Firma</button>
+  </form>
+
+  <canvas id="canvas" width="2031" height="500"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    document.getElementById('firmaForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      generarFirma();
+    });
+
+    function generarFirma() {
+      const fullname = document.getElementById('fullname').value;
+      const department = document.getElementById('department').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('email').value;
+
+      const imagen = new Image();
+      imagen.crossOrigin = "anonymous";
+      imagen.src = 'CL.png'; // Asegúrate de que esté en la misma carpeta
+
+      imagen.onload = function () {
+        // Limpiar canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Dibuja imagen de fondo
+        ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
+
+        // Estilo de texto
+        ctx.fillStyle = "white";
+        ctx.font = "bold 110px Arial";
+        ctx.fillText(fullname, 500, 300);
+
+        ctx.font = "90px Arial";
+        ctx.fillText(department, 500, 395);
+
+        ctx.font = "40px Arial";
+        if (phone.trim() !== "") {
+          ctx.fillText(phone, 20, 410);
+        }
+        ctx.fillText(email, 20, 460);
+
+        // Mostrar canvas con animación
+        canvas.classList.add('visible');
+
+        // Descargar automáticamente como PNG
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.download = 'firma.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        }, 300);
+      };
+    }
+  </script>
+</body>
+</html>
