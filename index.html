@@ -1,163 +1,171 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Generador de Firma Corporativa</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corporate Signature Generator</title>
   <style>
+    /* Estilo general */
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
-      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+      padding: 20px;
       text-align: center;
-      color: #222;
+      margin: 0;
+      background-color: #f4f4f4;
     }
-
     h2 {
-      font-size: 2em;
-      margin-bottom: 30px;
-      opacity: 0;
-      transform: translateY(-10px);
-      animation: fadeIn 1s ease forwards;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #0022af; /* Color Corporativo */
     }
-
     form {
-      max-width: 500px;
+      max-width: 600px; /* Ajuste de ancho */
       margin: auto;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 1s ease forwards;
-      animation-delay: 0.2s;
+      padding: 40px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
     }
-
-    input {
+    input, button {
       display: block;
       margin: 15px 0;
       width: 100%;
-      padding: 12px 15px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-sizing: border-box;
-      transition: all 0.3s ease;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
     }
-
-    input:focus {
+    input:focus, button:focus {
       outline: none;
-      border-color: #0022af;
-      box-shadow: 0 0 0 4px rgba(0, 34, 175, 0.15);
+      border-color: #0022af; /* Resaltado color corporativo */
     }
-
+    input {
+      font-size: 16px;
+      color: #333;
+    }
     button {
-      margin-top: 20px;
       background-color: #0022af;
       color: white;
-      padding: 12px;
-      width: 100%;
-      font-size: 1em;
-      border: none;
-      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s ease;
+      font-weight: bold;
+      border: none;
     }
-
     button:hover {
-      transform: translateY(-2px);
-      background-color: #001c91;
+      background-color: #001d88;
     }
 
+    /* Estilo de las plantillas */
+    .template-preview {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin: 20px auto;
+    }
+    .template-preview label {
+      display: block;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .template-preview input[type="radio"] {
+      display: none;
+    }
+    .template-img {
+      width: 100%;
+      max-width: 250px;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    input[type="radio"]:checked + img {
+      border: 2px solid #0022af;
+      transform: scale(1.05); /* Agrandar imagen seleccionada */
+    }
+
+    /* Canvas */
     canvas {
       display: block;
-      margin: 40px auto 0;
+      margin: 30px auto;
       border: 1px solid #ccc;
       border-radius: 10px;
-      width: 100%;
-      max-width: 1000px;
+      max-width: 100%;
       height: auto;
-      opacity: 0;
-      transition: opacity 0.5s ease;
     }
 
-    canvas.visible {
-      opacity: 1;
+    /* Media Queries: Responsivo */
+    @media (max-width: 768px) {
+      form {
+        padding: 20px;
+        max-width: 90%;
+      }
+      h2 {
+        font-size: 2em;
+      }
+      .template-img {
+        max-width: 180px;
+      }
     }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.5em;
+      }
+      .template-img {
+        max-width: 150px;
+      }
+      input, button {
+        font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
-  <h2>Generador de Firma Corporativa</h2>
+  <h2>Corporate Signature Generator</h2>
   
   <form id="firmaForm">
-    <input type="text" id="fullname" placeholder="Nombre completo" required />
-    <input type="text" id="department" placeholder="Departamento" required />
-    <input type="text" id="phone" placeholder="Teléfono corporativo (opcional)" />
-    <input type="email" id="email" placeholder="Correo electrónico" required />
+    <input type="text" id="fullname" placeholder="Fullname" required />
+    <input type="text" id="department" placeholder="Departmt" required />
+    <input type="text" id="phone" placeholder="Phone Number (opctional)" />
+    <input type="email" id="email" placeholder="Email" required />
+    
+    <div class="template-preview">
+      <label>
+        <input type="radio" name="template" value="CL.png" />
+        <img src="CL.png" alt="Plantilla 1" class="template-img" />
+      </label>
+      <label>
+        <input type="radio" name="template" value="CL2.png" />
+        <img src="CL2.png" alt="Plantilla 2" class="template-img" />
+      </label>
+      <label>
+        <input type="radio" name="template" value="14.png" />
+        <img src="14.png" alt="Plantilla 3" class="template-img" />
+      </label>
+      <label>
+        <input type="radio" name="template" value="15.png" />
+        <img src="15.png" alt="Plantilla 4" class="template-img" />
+      </label>
+      <label>
+        <input type="radio" name="template" value="16.png" />
+        <img src="16.png" alt="Plantilla 5" class="template-img" />
+      </label>
+      <label>
+        <input type="radio" name="template" value="17.png" />
+        <img src="17.png" alt="Plantilla 6" class="template-img" />
+      </label>
+      <label>
+        <input type="radio" name="template" value="18.png" />
+        <img src="18.png" alt="Plantilla 7" class="template-img" />
+      </label>
+    </div>
+
     <button type="submit">Generar Firma</button>
   </form>
 
   <canvas id="canvas" width="2031" height="500"></canvas>
 
-  <script>
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-
-    document.getElementById('firmaForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      generarFirma();
-    });
-
-    function generarFirma() {
-      const fullname = document.getElementById('fullname').value;
-      const department = document.getElementById('department').value;
-      const phone = document.getElementById('phone').value;
-      const email = document.getElementById('email').value;
-
-      const imagen = new Image();
-      imagen.crossOrigin = "anonymous";
-      imagen.src = 'CL.png'; // Asegúrate de que esté en la misma carpeta
-
-      imagen.onload = function () {
-        // Limpiar canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Dibuja imagen de fondo
-        ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
-
-        // Estilo de texto
-        ctx.fillStyle = "white";
-        ctx.font = "bold 110px Arial";
-        ctx.fillText(fullname, 500, 300);
-
-        ctx.font = "90px Arial";
-        ctx.fillText(department, 500, 395);
-
-        ctx.font = "40px Arial";
-        if (phone.trim() !== "") {
-          ctx.fillText(phone, 20, 410);
-        }
-        ctx.fillText(email, 20, 460);
-
-        // Mostrar canvas con animación
-        canvas.classList.add('visible');
-
-        // Descargar automáticamente como PNG
-        setTimeout(() => {
-          const link = document.createElement('a');
-          link.download = 'firma.png';
-          link.href = canvas.toDataURL('image/png');
-          link.click();
-        }, 300);
-      };
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

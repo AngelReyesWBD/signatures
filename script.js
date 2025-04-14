@@ -12,18 +12,22 @@ function generarFirma() {
   const phone = document.getElementById('phone').value;
   const email = document.getElementById('email').value;
 
+  const selectedTemplateInput = document.querySelector('input[name="template"]:checked');
+
+  if (!selectedTemplateInput) {
+    alert('Por favor selecciona una plantilla.');
+    return;
+  }
+
+  const selectedTemplate = selectedTemplateInput.value;
+
   const imagen = new Image();
-  imagen.crossOrigin = "anonymous";
-  imagen.src = 'CL.png'; // Asegúrate que esté en la misma carpeta
+  imagen.src = selectedTemplate;
 
   imagen.onload = function () {
-    // Limpiar canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Dibuja la imagen de fondo
     ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
 
-    // Estilo de texto
     ctx.fillStyle = "white";
     ctx.font = "bold 110px Arial";
     ctx.fillText(fullname, 500, 300);
@@ -37,12 +41,15 @@ function generarFirma() {
     }
     ctx.fillText(email, 20, 460);
 
-    // Descargar automáticamente como archivo PNG
     setTimeout(() => {
       const link = document.createElement('a');
-      link.download = 'signature.png'; // El nombre del archivo descargado
-      link.href = canvas.toDataURL('image/png'); // Genera el enlace con el contenido en formato PNG
-      link.click(); // Simula el clic para iniciar la descarga
+      link.download = 'signature.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
     }, 300);
+  };
+
+  imagen.onerror = function () {
+    alert("No se pudo cargar la plantilla. Asegúrate que el archivo esté en la misma carpeta.");
   };
 }
