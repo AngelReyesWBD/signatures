@@ -1,227 +1,225 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generador de Firmas Corporativas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Generador de Firma Corporativa</title>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
+    :root {
+      --primary-color: #0022af;
+      --hover-color: #001d88;
+      --light-bg: #f4f4f4;
+      --white: #ffffff;
+      --gray-border: #ddd;
     }
 
     body {
       margin: 0;
-      background-color: #f0f2f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
       color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     header {
-      background-color: #0022af;
-      color: #fff;
-      padding: 1rem;
+      width: 100%;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      font-size: 2.5em;
+      margin: 0;
     }
 
     main {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding: 2rem;
-      gap: 2rem;
-      justify-content: center;
+      max-width: 900px;
+      width: 100%;
+      padding: 30px;
     }
 
-    .form-section, .preview-section {
-      background-color: #fff;
+    form {
+      background-color: var(--white);
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 1.5rem;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    input, button {
       width: 100%;
-      max-width: 480px;
-    }
-
-    .form-section h2, .preview-section h2 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.6rem;
-      margin-bottom: 1rem;
+      padding: 12px;
+      margin: 10px 0;
       border-radius: 8px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--gray-border);
+      font-size: 1rem;
     }
 
-    .templates {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 1rem;
-    }
-
-    .template-card {
-      position: relative;
-      border: 2px solid transparent;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .template-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    input[type="radio"] {
-      display: none;
-    }
-
-    input[type="radio"]:checked + .template-card {
-      border-color: #0022af;
-    }
-
-    .template-card img {
-      width: 100%;
-      display: block;
+    input:focus, button:focus {
+      outline: none;
+      border-color: var(--primary-color);
     }
 
     button {
-      background-color: #0022af;
-      color: #fff;
+      background-color: var(--primary-color);
+      color: white;
       border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s;
-      width: 100%;
+      font-weight: bold;
     }
 
     button:hover {
-      background-color: #1a1a66;
+      background-color: var(--hover-color);
+    }
+
+    .template-section {
+      margin-top: 20px;
+    }
+
+    .template-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .template-header input[type="search"] {
+      padding: 8px;
+      width: 200px;
+      border-radius: 6px;
+      border: 1px solid var(--gray-border);
+    }
+
+    .template-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    .template-preview label {
+      cursor: pointer;
+      transition: transform 0.3s;
+      position: relative;
+    }
+
+    .template-preview input[type="radio"] {
+      display: none;
+    }
+
+    .template-img {
+      width: 100%;
+      border-radius: 10px;
+      border: 3px solid transparent;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    input[type="radio"]:checked + img {
+      border-color: var(--primary-color);
+      transform: scale(1.03);
+      box-shadow: 0 0 10px rgba(0,34,175,0.4);
     }
 
     canvas {
-      width: 100%;
-      max-width: 100%;
-      margin-top: 1rem;
-      background-color: #fafafa;
+      display: block;
+      margin: 30px auto;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 10px;
+      max-width: 100%;
+      height: auto;
     }
 
-    @media (min-width: 768px) {
-      .form-section, .preview-section {
-        width: 45%;
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 1.8em;
+      }
+      .template-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .template-header input[type="search"] {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Generador de Firmas Corporativas</h1>
-    <p>Personaliza tu firma con tus datos y elige una plantilla</p>
+    <h2>Generador de Firma Corporativa</h2>
   </header>
 
   <main>
-    <section class="form-section">
-      <h2>1. Ingresa tus datos</h2>
-      <form id="signatureForm">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" required>
+    <form id="firmaForm">
+      <input type="text" id="fullname" placeholder="Nombre completo" required />
+      <input type="text" id="department" placeholder="Departamento" required />
+      <input type="text" id="phone" placeholder="Número corporativo (opcional)" />
+      <input type="email" id="email" placeholder="Correo electrónico" required />
 
-        <label for="puesto">Puesto</label>
-        <input type="text" id="puesto" name="puesto" required>
-
-        <label for="departamento">Departamento</label>
-        <input type="text" id="departamento" name="departamento" required>
-
-        <label for="correo">Correo electrónico</label>
-        <input type="email" id="correo" name="correo" required>
-
-        <label for="telefono">Teléfono corporativo</label>
-        <input type="text" id="telefono" name="telefono" required>
-      </form>
-    </section>
-
-    <section class="preview-section">
-      <h2>2. Selecciona una plantilla</h2>
-      <div class="templates">
-       </label>
-      <label class="template-card">
-        <input type="radio" name="template" value="CL2.png" />
-        <img src="CL2.png" alt="Plantilla CL2" />
-      </label>
-      <label class="template-card">
-        <input type="radio" name="template" value="15.png" />
-        <img src="15.png" alt="Plantilla 15" />
-      </label>
-      <label class="template-card">
-        <input type="radio" name="template" value="16.png" />
-        <img src="16.png" alt="Plantilla 16" />
-      </label>
-      <label class="template-card">
-        <input type="radio" name="template" value="17.png" />
-        <img src="17.png" alt="Plantilla 17" />
-      </label>
-      <label class="template-card">
-        <input type="radio" name="template" value="18.png" />
-        <img src="18.png" alt="Plantilla 18" />
-      </label>
-        <!-- Agrega más plantillas según necesites -->
+      <div class="template-section">
+        <div class="template-header">
+          <h3>Selecciona una plantilla</h3>
+          <input type="search" id="searchTemplate" placeholder="Buscar plantilla..." />
+        </div>
+        <div class="template-preview" id="templateGallery">
+          <label>
+            <input type="radio" name="template" value="CL.png">
+            <img src="CL.png" alt="Plantilla 1" class="template-img">
+          </label>
+          <label>
+            <input type="radio" name="template" value="CL2.png">
+            <img src="CL2.png" alt="Plantilla 2" class="template-img">
+          </label>
+          <label>
+            <input type="radio" name="template" value="14.png">
+            <img src="14.png" alt="Plantilla 3" class="template-img">
+          </label>
+          <label>
+            <input type="radio" name="template" value="15.png">
+            <img src="15.png" alt="Plantilla 4" class="template-img">
+          </label>
+          <label>
+            <input type="radio" name="template" value="16.png">
+            <img src="16.png" alt="Plantilla 5" class="template-img">
+          </label>
+          <label>
+            <input type="radio" name="template" value="17.png">
+            <img src="17.png" alt="Plantilla 6" class="template-img">
+          </label>
+          <label>
+            <input type="radio" name="template" value="18.png">
+            <img src="18.png" alt="Plantilla 7" class="template-img">
+          </label>
+        </div>
       </div>
 
-      <button type="submit" onclick="generarFirma()">Generar y descargar firma</button>
-      <canvas id="firmaCanvas" width="600" height="200"></canvas>
-    </section>
+      <button type="submit">Generar Firma</button>
+    </form>
+
+    <canvas id="canvas" width="2031" height="500"></canvas>
   </main>
 
   <script>
-    function generarFirma() {
-      const form = document.getElementById('signatureForm');
-      const nombre = form.nombre.value;
-      const puesto = form.puesto.value;
-      const departamento = form.departamento.value;
-      const correo = form.correo.value;
-      const telefono = form.telefono.value;
+    const searchInput = document.getElementById('searchTemplate');
+    const gallery = document.getElementById('templateGallery');
 
-      const plantillaSeleccionada = document.querySelector('input[name="plantilla"]:checked').value;
-
-      const canvas = document.getElementById('firmaCanvas');
-      const ctx = canvas.getContext('2d');
-
-      const img = new Image();
-      img.src = plantillaSeleccionada + '.png';
-
-      img.onload = function() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = "#0022af";
-        ctx.font = "bold 20px Inter";
-        ctx.fillText(nombre, 20, 40);
-
-        ctx.font = "16px Inter";
-        ctx.fillText(puesto, 20, 70);
-        ctx.fillText(departamento, 20, 100);
-        ctx.fillText(correo, 20, 130);
-        ctx.fillText(telefono, 20, 160);
-
-        const link = document.createElement('a');
-        link.download = 'firma_' + nombre + '.png';
-        link.href = canvas.toDataURL();
-        link.click();
-      }
-    }
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.toLowerCase();
+      const labels = gallery.querySelectorAll('label');
+      labels.forEach(label => {
+        const alt = label.querySelector('img').alt.toLowerCase();
+        label.style.display = alt.includes(term) ? 'block' : 'none';
+      });
+    });
   </script>
+  <script src="script.js"></script>
 </body>
 </html>
