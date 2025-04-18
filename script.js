@@ -1,5 +1,6 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const downloadBtn = document.getElementById('downloadBtn');
 
 document.getElementById('firmaForm').addEventListener('submit', function (e) {
   e.preventDefault();
@@ -20,7 +21,6 @@ function generarFirma() {
   }
 
   const selectedTemplate = selectedTemplateInput.value;
-
   const imagen = new Image();
   imagen.src = selectedTemplate;
 
@@ -41,15 +41,32 @@ function generarFirma() {
     }
     ctx.fillText(email, 20, 460);
 
-    setTimeout(() => {
-      const link = document.createElement('a');
-      link.download = 'signature.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }, 300);
+    // Mostrar el botón de descarga
+    downloadBtn.style.display = 'inline-flex';
   };
 
   imagen.onerror = function () {
     alert("No se pudo cargar la plantilla. Asegúrate que el archivo esté en la misma carpeta.");
   };
 }
+
+downloadBtn.addEventListener('click', function () {
+  const link = document.createElement('a');
+  link.download = 'firma.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+});
+
+// Ocultar botón de descarga si se modifica algo del formulario
+const formElements = document.querySelectorAll('#firmaForm input');
+formElements.forEach(el => {
+  el.addEventListener('input', () => {
+    downloadBtn.style.display = 'none';
+  });
+
+  if (el.type === 'radio') {
+    el.addEventListener('change', () => {
+      downloadBtn.style.display = 'none';
+    });
+  }
+});
