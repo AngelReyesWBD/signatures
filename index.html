@@ -307,29 +307,32 @@
   </header>
 
   <main>
-    <form id="firmaForm">
-      <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; text-align: center;">
 
+    <form id="firmaForm">
+       <h3>Fields / Information</h3><br>
+
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; text-align: center;">
+        
         <div class="input-group">
           <input required type="text" id="fullname" name="fullname" autocomplete="off" class="input">
-          <label for="fullname" class="user-label">Nombre completo</label>
+          <label for="fullname" class="user-label">Full Name</label>
         </div>
 
         <div class="input-group">
           <input required type="text" id="department" name="department" autocomplete="off" class="input">
-          <label for="department" class="user-label">Departamento</label>
+          <label for="department" class="user-label">Department</label>
         </div>
 
         <div class="input-group">
           <input type="tel" id="phone" name="phone" autocomplete="off" class="input"
                  inputmode="numeric" pattern="[0-9]{10}" maxlength="10"
                  title="Ingresa un número de 10 dígitos (solo números)">
-          <label for="phone" class="user-label">Número corporativo (opcional)</label>
+          <label for="phone" class="user-label">Corporate Number (optional)</label>
         </div>
 
         <div class="input-group">
           <input required type="email" id="email" name="email" autocomplete="off" class="input">
-          <label for="email" class="user-label">Correo electrónico</label>
+          <label for="email" class="user-label">Corporate email</label>
         </div>
       </div>
 
