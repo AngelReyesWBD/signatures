@@ -299,15 +299,6 @@
         width: 100%;
       }
     }
-
-    /* ✅ Nuevo bloque agregado para adaptar imágenes en celular */
-    @media (max-width: 768px) {
-      .template-img {
-        width: 100% !important;
-        height: auto !important;
-        object-fit: contain;
-      }
-    }
   </style>
 </head>
 <body>
@@ -317,7 +308,7 @@
 
   <main>
     <form id="firmaForm">
-      <div style="display: flex; gap: 80px; flex-wrap: wrap; justify-content: center; text-align: center;">
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; text-align: center;">
 
         <div class="input-group">
           <input required type="text" id="fullname" name="fullname" autocomplete="off" class="input">
@@ -393,4 +384,4 @@
   </script>
   <script src="script.js"></script>
 </body>
-</html>
+</html> 
