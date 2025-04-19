@@ -2,10 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- ✅ Viewport corregido -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Generador de Firma Corporativa</title>
+
+  <!-- ✅ Estilos globales para evitar desbordamientos -->
   <style>
-    /* Aquí va todo tu CSS tal como estaba (sin cambios) */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .container, .main-content, .wrapper {
+      width: 100vw;
+      max-width: 100%;
+    }
+
+    input {
+      max-width: 100%;
+    }
+  </style>
+
+  <style>
     :root {
       --primary-color: #0022af;
       --hover-color: #001d88;
@@ -15,7 +38,6 @@
     }
 
     body {
-      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--light-bg);
       color: #333;
@@ -176,7 +198,6 @@
       transform: translateY(-50%) scale(0.8);
       color: #015cfe;
     }
-
     .animated-button {
       position: relative;
       display: flex;
@@ -363,3 +384,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
