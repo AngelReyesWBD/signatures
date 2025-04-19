@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Generador de Firma Corporativa</title>
   <style>
+    /* Aquí va todo tu CSS tal como estaba (sin cambios) */
     :root {
       --primary-color: #0022af;
       --hover-color: #001d88;
@@ -286,13 +287,7 @@
 
   <main>
     <form id="firmaForm">
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        justify-content: center;
-        text-align: center;
-      ">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; justify-content: center; text-align: center;">
         <div class="input-group">
           <input required type="text" id="fullname" name="fullname" autocomplete="off" class="input">
           <label for="fullname" class="user-label">Nombre completo</label>
