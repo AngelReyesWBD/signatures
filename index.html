@@ -382,6 +382,15 @@
       });
     });
   </script>
+  <script>
+  document.getElementById('firmaForm').addEventListener('submit', function(e) {
+    setTimeout(() => {
+      const canvas = document.getElementById('canvas');
+      canvas.scrollIntoView({ behavior: 'smooth' });
+    }, 100); // pequeño delay para asegurarse de que el canvas se haya renderizado si es necesario
+  });
+</script>
+
   <script src="script.js"></script>
 </body>
 </html> 
