@@ -24,22 +24,48 @@ function generarFirma() {
   const imagen = new Image();
   imagen.src = selectedTemplate;
 
-  imagen.onload = function () {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
+imagen.onload = function () {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "white";
-    ctx.font = "bold 110px Arial";
-    ctx.fillText(fullname, 500, 300);
+  // Cambiar color de letra dependiendo de la plantilla seleccionada
+  let textoColor = "white";
+  const plantillaBlanca = ["14.png", "15.png", "16.png", "17.png", "18.png", "CL.png", "CL2.png"];
+  if (!plantillaBlanca.includes(selectedTemplate)) {
+    textoColor = "black"; // TLOU u otras
+  }
 
-    ctx.font = "90px Arial";
-    ctx.fillText(department, 500, 395);
+  ctx.fillStyle = textoColor;
 
-    ctx.font = "40px Arial";
-    if (phone.trim() !== "") {
-      ctx.fillText(phone, 20, 410);
-    }
-    ctx.fillText(email, 20, 460);
+   // Posiciones por defecto
+  let nombreX = 500, nombreY = 300;
+  let deptoX = 500, deptoY = 395;
+  let phoneX = 20, phoneY = 410;
+  let emailX = 20, emailY = 460;
+
+  // Si la plantilla es CL2.png, cambiar posiciones
+  if (selectedTemplate === "CL2.png") {
+    nombreX = 800;
+    nombreY = 280;
+    deptoX = 800;
+    deptoY = 370;
+    phoneX = 1600;
+    phoneY = 405;
+    emailX = 1400;
+    emailY = 440;
+  }
+
+  ctx.font = "bold 110px Arial";
+  ctx.fillText(fullname, nombreX, nombreY);
+
+  ctx.font = "90px Arial";
+  ctx.fillText(department, deptoX, deptoY);
+
+  ctx.font = "40px Arial";
+  if (phone.trim() !== "") {
+    ctx.fillText(phone, phoneX, phoneY);
+  }
+  ctx.fillText(email, emailX, emailY);
 
     // Mostrar el botón de descarga
     downloadBtn.style.display = 'inline-flex';
