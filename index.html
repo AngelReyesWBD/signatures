@@ -299,6 +299,15 @@
         width: 100%;
       }
     }
+
+    /* ✅ Nuevo bloque agregado para adaptar imágenes en celular */
+    @media (max-width: 768px) {
+      .template-img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain;
+      }
+    }
   </style>
 </head>
 <body>
