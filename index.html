@@ -29,7 +29,7 @@
   </style>
 
   <style>
-    
+
     :root {
       --primary-color: #0022af;
       --hover-color: #001d88;
@@ -47,14 +47,42 @@
       align-items: center;
     }
 
-    header {
-      width: 100%;
-      background-color: var(--primary-color);
-      color: white;
-      padding: 30px 0;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+    .hero-header {
+  width: 100%;
+  padding: 20px 20px;
+  background: linear-gradient(135deg, #0022af,#015cfe, #04006c ,#015cfe, #04006c);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInDown 1s ease-out;
+}
+
+.hero-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-header::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: #fff;
+  margin: 20px auto 0;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .hero-header h1 {
+    font-size: 2rem;
+  }
+}
 
     h2 {
       font-size: 2.5em;
@@ -327,9 +355,10 @@
 </style>
 </head>
 <body>
-  <header>
-    <h2>Corporate Signature Generator</h2>
-  </header>
+  <header class="hero-header">
+  <h1>Corporate Signature Generator</h1>
+</header>
+
 
   <main>
 
