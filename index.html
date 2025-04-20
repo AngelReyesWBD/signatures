@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Generador de Firma Corporativa</title>
 
+
+
   <!-- ✅ Estilos globales para evitar desbordamientos -->
   <style>
     * {
@@ -104,16 +106,22 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
-  max-height: 500px;
+  max-height: 350px;
   overflow-y: auto;
   padding: 50px;
 }
 
     .template-preview label {
-      cursor: pointer;
-      transition: transform 0.3s;
-      position: relative;
-    }
+  width: 48%; /* 2 columnas */
+  cursor: pointer;
+  transition: transform 0.3s;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .template-preview label {
+    width: 100%;
+  }
+}
 
     .template-preview input[type="radio"] {
       display: none;
