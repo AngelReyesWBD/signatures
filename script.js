@@ -1,9 +1,18 @@
-// Cargar Beatrice Regular y ExtraBold sin estilos forzados
-const beatrice = new FontFace('Beatrice', 'url(Beatrice.ttf)');
-const beatriceExtraBold = new FontFace('Beatrice Extrabold', 'url(Beatrice Extrabold.ttf)');
+// Cargar fuentes y esperar a que estén listas
+Promise.all([
+  new FontFace('Beatrice', 'url(Beatrice.ttf)').load(),
+  new FontFace('Beatrice Extrabold', 'url(Beatrice Extrabold.ttf)').load()
+]).then(loadedFonts => {
+  loadedFonts.forEach(font => document.fonts.add(font));
 
-beatrice.load().then(font => document.fonts.add(font));
-beatriceExtraBold.load().then(font => document.fonts.add(font));
+  // Una vez cargadas, se activa el formulario
+  document.getElementById('firmaForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    generarFirma();
+  });
+}).catch(err => {
+  console.error("Error cargando las fuentes:", err);
+});
 
 
 const canvas = document.getElementById('canvas');
