@@ -46,14 +46,23 @@ imagen.onload = function () {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
 
-  // Cambiar color de letra dependiendo de la plantilla seleccionada
   let textoColor = "white";
-  const plantillaBlanca = ["14.png", "15.png", "16.png", "17.png", "18.png", "CL.png", "CL2.png"];
-  if (!plantillaBlanca.includes(selectedTemplate)) {
-    textoColor = "black"; // TLOU u otras
-  }
+let shadowColor = "black";
 
-  ctx.fillStyle = textoColor;
+const plantillaBlanca = ["14.png", "15.png", "16.png", "17.png", "18.png", "CL.png", "CL2.png"];
+
+if (!plantillaBlanca.includes(selectedTemplate)) {
+  textoColor = "black";
+  shadowColor = "white"; // Sombra blanca para plantillas oscuras
+}
+
+// Establecer sombra y color de texto
+ctx.shadowColor = shadowColor;
+ctx.shadowBlur = 10;
+ctx.shadowOffsetX = 2;
+ctx.shadowOffsetY = 2;
+
+ctx.fillStyle = textoColor;
 
    // Posiciones por defecto
   let nombreX = 500, nombreY = 300;
