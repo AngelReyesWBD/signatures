@@ -1,9 +1,10 @@
-// Cargar fuentes personalizadas
+// Cargar Beatrice Regular y ExtraBold sin estilos forzados
 const beatrice = new FontFace('Beatrice', 'url(Beatrice.ttf)');
-const beatriceBold = new FontFace('Beatrice Bold', 'url(Beatrice Bold.ttf)');
+const beatriceExtraBold = new FontFace('Beatrice Extrabold', 'url(Beatrice Extrabold.ttf)');
 
 beatrice.load().then(font => document.fonts.add(font));
-beatriceBold.load().then(font => document.fonts.add(font));
+beatriceExtraBold.load().then(font => document.fonts.add(font));
+
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -62,7 +63,7 @@ imagen.onload = function () {
     emailY = 440;
   }
 
-ctx.font = "110px 'Beatrice Bold'";
+ctx.font = "110px 'Beatrice Extrabold'";
 ctx.fillText(fullname, nombreX, nombreY);
 
 ctx.font = "90px 'Beatrice'";
@@ -73,7 +74,6 @@ if (phone.trim() !== "") {
   ctx.fillText(phone, phoneX, phoneY);
 }
 ctx.fillText(email, emailX, emailY);
-
 
     // Mostrar el botón de descarga
     downloadBtn.style.display = 'inline-flex';
