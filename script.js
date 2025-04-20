@@ -1,3 +1,10 @@
+// Cargar fuentes personalizadas
+const beatrice = new FontFace('Beatrice', 'url(Beatrice.ttf)');
+const beatriceBold = new FontFace('Beatrice Bold', 'url(Beatrice Bold.ttf)');
+
+beatrice.load().then(font => document.fonts.add(font));
+beatriceBold.load().then(font => document.fonts.add(font));
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const downloadBtn = document.getElementById('downloadBtn');
@@ -55,17 +62,18 @@ imagen.onload = function () {
     emailY = 440;
   }
 
-  ctx.font = "bold 110px Arial";
-  ctx.fillText(fullname, nombreX, nombreY);
+ctx.font = "110px 'Beatrice Bold'";
+ctx.fillText(fullname, nombreX, nombreY);
 
-  ctx.font = "90px Arial";
-  ctx.fillText(department, deptoX, deptoY);
+ctx.font = "90px 'Beatrice'";
+ctx.fillText(department, deptoX, deptoY);
 
-  ctx.font = "40px Arial";
-  if (phone.trim() !== "") {
-    ctx.fillText(phone, phoneX, phoneY);
-  }
-  ctx.fillText(email, emailX, emailY);
+ctx.font = "40px 'Beatrice'";
+if (phone.trim() !== "") {
+  ctx.fillText(phone, phoneX, phoneY);
+}
+ctx.fillText(email, emailX, emailY);
+
 
     // Mostrar el botón de descarga
     downloadBtn.style.display = 'inline-flex';
