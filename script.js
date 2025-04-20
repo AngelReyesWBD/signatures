@@ -1,57 +1,28 @@
-const beatrice = new FontFace('Beatrice', 'url(Beatrice.ttf)');
-const beatriceExtrabold = new FontFace('Beatrice Extrabold', 'url(Beatrice Extrabold.ttf)');
-
-beatrice.load().then(font => document.fonts.add(font));
-beatriceExtrabold.load().then(font => document.fonts.add(font));
-// Espera que las fuentes estén completamente cargadas antes de iniciar la funcionalidad del canvas
-document.fonts.ready.then(() => {
-  // Ahora que las fuentes están listas, puedes empezar a capturar eventos y generar la firma
-  document.getElementById('firmaForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    generarFirma();
-  });
-}).catch(err => {
-  console.error("Error cargando las fuentes:", err);
-});
-
-
-
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const downloadBtn = document.getElementById('downloadBtn');
-
-document.getElementById('firmaForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  generarFirma();
-});
-
-function generarFirma() {
-  const fullname = document.getElementById('fullname').value;
-  const department = document.getElementById('department').value;
-  const phone = document.getElementById('phone').value;
-  const email = document.getElementById('email').value;
-
-  const selectedTemplateInput = document.querySelector('input[name="template"]:checked');
-
-  if (!selectedTemplateInput) {
-    alert('Por favor selecciona una plantilla.');
-    return;
-  }
-
-  const selectedTemplate = selectedTemplateInput.value;
-  const imagen = new Image();
-  imagen.src = selectedTemplate;
-
 imagen.onload = function () {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
+  ctx.shadowColor = "black";
+ctx.shadowBlur = 10;
+ctx.shadowOffsetX = 2;
+ctx.shadowOffsetY = 2;
+
 
   // Cambiar color de letra dependiendo de la plantilla seleccionada
   let textoColor = "white";
+  let shadowColor = "black";
+
   const plantillaBlanca = ["14.png", "15.png", "16.png", "17.png", "18.png", "CL.png", "CL2.png"];
   if (!plantillaBlanca.includes(selectedTemplate)) {
     textoColor = "black"; // TLOU u otras
+    shadowColor = "white"; // Sombra blanca para plantillas oscuras
+
   }
+
+  // Efecto de sombra
+ctx.shadowColor = shadowColor;
+ctx.shadowBlur = 10;
+ctx.shadowOffsetX = 2;
+ctx.shadowOffsetY = 2;
 
   ctx.fillStyle = textoColor;
 
