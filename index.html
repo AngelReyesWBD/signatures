@@ -104,17 +104,24 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
-  max-height: 500px;
+  max-height: 350px;
   overflow-y: auto;
   padding: 50px;
 }
 
-    .template-preview label {
-      cursor: pointer;
-      transition: transform 0.3s;
-      position: relative;
-    }
-
+    /* Este es el elemento hijo (cada plantilla) */
+.template-preview label {
+  width: 48%; /* 2 columnas */
+  cursor: pointer;
+  transition: transform 0.3s;
+  position: relative;
+}
+/* Responsive: 1 columna en pantallas pequeñas */
+@media (max-width: 768px) {
+  .template-preview label {
+    width: 100%;
+  }
+}
     .template-preview input[type="radio"] {
       display: none;
     }
