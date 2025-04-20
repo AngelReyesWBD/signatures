@@ -1,17 +1,12 @@
-const beatrice = new FontFace('Beatrice', 'url(Beatrice.ttf)');
-const beatriceExtrabold = new FontFace('Beatrice Extrabold', 'url(Beatrice Extrabold.ttf)');
+const beatrice = new FontFace('Beatrice', 'Beatrice.ttf');
+const beatriceExtraBold = new FontFace('Beatrice Extrabold', 'Beatrice Extrabold.ttf');
 
-beatrice.load().then(font => document.fonts.add(font));
-beatriceExtrabold.load().then(font => document.fonts.add(font));
-// Espera que las fuentes estén completamente cargadas antes de iniciar la funcionalidad del canvas
-document.fonts.ready.then(() => {
-  // Ahora que las fuentes están listas, puedes empezar a capturar eventos y generar la firma
-  document.getElementById('firmaForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    generarFirma();
-  });
-}).catch(err => {
-  console.error("Error cargando las fuentes:", err);
+Promise.all([
+  beatrice.load(),
+  beatriceExtraBold.load()
+]).then(fonts => {
+  fonts.forEach(font => document.fonts.add(font));
+  console.log("Fuentes cargadas correctamente");
 });
 
 
