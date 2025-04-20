@@ -29,6 +29,7 @@
   </style>
 
   <style>
+    
     :root {
       --primary-color: #0022af;
       --hover-color: #001d88;
@@ -87,13 +88,14 @@
     }
 
     .template-preview {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-      gap: 15px;
-      max-height: 500px;
-      overflow-y: auto;
-      padding-right: 30px;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 50px;
+}
 
     .template-preview label {
       cursor: pointer;
@@ -300,6 +302,29 @@
       }
     }
   </style>
+  <style>
+  @keyframes rotateShadowTemplates {
+    0% {
+      box-shadow: -2px -2px 12px 1px #015cfe, 2px 2px 12px 1px #0022af;
+    }
+    25% {
+      box-shadow: -2px 2px 12px 1px #015cfe, 2px -2px 12px 1px #04006c;
+    }
+    50% {
+      box-shadow: 2px 2px 12px 1px #015cfe, -2px -2px 12px 1px #0022af;
+    }
+    75% {
+      box-shadow: 2px -2px 12px 1px #015cfe, -2px 2px 12px 1px #04006c;
+    }
+    100% {
+      box-shadow: -2px -2px 12px 1px #015cfe, 2px 2px 12px 1px #0022af;
+    }
+  }
+
+  input[type="radio"]:checked + img {
+    animation: rotateShadowTemplates 1s infinite linear;
+  }
+</style>
 </head>
 <body>
   <header>
@@ -338,7 +363,7 @@
 
       <div class="template-section">
         <div class="template-header">
-          <h3>Selecciona una plantilla</h3>
+          <h3>Select a template</h3>
           <input placeholder="Buscar plantilla..." class="input" id="searchTemplate" name="text" type="text" />
         </div>
         <div class="template-preview" id="templateGallery">
@@ -356,6 +381,7 @@
 
         </div>
       </div>
+
 
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button class="animated-button" type="submit">
