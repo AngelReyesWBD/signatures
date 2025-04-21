@@ -46,27 +46,83 @@
       flex-direction: column;
       align-items: center;
     }
-
     .hero-header {
   width: 100%;
-  padding: 20px 20px;
+  padding: 10px 10px;
   background: linear-gradient(135deg, #0022af,#015cfe, #04006c ,#015cfe, #04006c);
   color: #fff;
   text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  position: center;
+  position: relative; /* Necesario para que funcione el ::after */
   overflow: hidden;
   animation: fadeInDown 1s ease-out;
 }
 
-.hero-header h1 {
-  font-size: 2rem;
-  font-weight: 650;
-  letter-spacing: 1px;
-  margin: 0;
-  position: center;
-  z-index: 2;
+.hero-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8px; /* grosor del "borde" animado */
+  animation: rotateShadow 1s infinite linear;
 }
+
+@keyframes rotateShadow {
+  0% {
+    box-shadow: 0 2px 10px #015cfe;
+  }
+  25% {
+    box-shadow: 0 2px 10px #0022af;
+  }
+  50% {
+    box-shadow: 0 2px 10px #04006c;
+  }
+  75% {
+    box-shadow: 0 2px 10px #015cfe;
+  }
+  100% {
+    box-shadow: 0 2px 10px #0022af;
+  }
+}
+.hero-footer {
+  width: 100%;
+  height: 80px; /* Puedes ajustar la altura a lo que necesites */
+  background: linear-gradient(135deg, #0022af, #015cfe, #04006c , #015cfe, #04006c);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de sombra en la parte superior del footer */
+.hero-footer::before {
+  content: "";
+  position: absolute;
+  top: 0; /* Cambiado de bottom a top */
+  left: 0;
+  width: 100%;
+  height: 8px;
+  animation: rotateShadow 1s infinite linear;
+}
+
+/* Reutiliza la misma animación del header */
+@keyframes rotateShadow {
+  0% {
+    box-shadow: 0 -2px 10px #015cfe; /* -2px para que la sombra vaya hacia abajo desde arriba */
+  }
+  25% {
+    box-shadow: 0 -2px 10px #0022af;
+  }
+  50% {
+    box-shadow: 0 -2px 10px #04006c;
+  }
+  75% {
+    box-shadow: 0 -2px 10px #015cfe;
+  }
+  100% {
+    box-shadow: 0 -2px 10px #0022af;
+  }
+}
+
+
 
     h2 {
       font-size: 2.5em;
@@ -444,6 +500,7 @@
     }, 100); // pequeño delay para asegurarse de que el canvas se haya renderizado si es necesario
   });
 </script>
+<footer class="hero-footer"></footer>
 
   <script src="script.js"></script>
 </body>
