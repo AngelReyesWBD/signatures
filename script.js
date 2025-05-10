@@ -1,5 +1,5 @@
-const beatrice = new FontFace('Beatrice', 'Beatrice.ttf');
-const beatriceExtraBold = new FontFace('Beatrice Extrabold', 'Beatrice Extrabold.ttf');
+const beatrice = new FontFace('Beatrice', 'url("Beatrice.ttf")');
+const beatriceExtraBold = new FontFace('Beatrice Extrabold', 'url("Beatrice Extrabold.ttf")');
 
 Promise.all([
   beatrice.load(),
@@ -7,18 +7,17 @@ Promise.all([
 ]).then(fonts => {
   fonts.forEach(font => document.fonts.add(font));
   console.log("Fuentes cargadas correctamente");
+
+  // Solo agregar el event listener cuando las fuentes estén listas
+  document.getElementById('firmaForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    generarFirma();
+  });
 });
-
-
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const downloadBtn = document.getElementById('downloadBtn');
-
-document.getElementById('firmaForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  generarFirma();
-});
 
 function generarFirma() {
   const fullname = document.getElementById('fullname').value;
@@ -37,45 +36,29 @@ function generarFirma() {
   const imagen = new Image();
   imagen.src = selectedTemplate;
 
-imagen.onload = function () {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
+  imagen.onload = function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
 
-  let textoColor = "white";
-let shadowColor = "black";
+    let textoColor = "white";
+    let shadowColor = "black";
 
-const plantillaBlanca = ["14.png", "15.png", "16.png", "17.png", "18.png", "CL.png", "CL2.png"];
+    const plantillaBlanca = ["14.png", "15.png", "16.png", "17.png", "18.png", "CL.png", "CL2.png"];
 
-if (!plantillaBlanca.includes(selectedTemplate)) {
-  textoColor = "black";
-  shadowColor = "white"; // Sombra blanca para plantillas oscuras
-}
+    if (!plantillaBlanca.includes(selectedTemplate)) {
+      textoColor = "black";
+      shadowColor = "white";
+    }
 
-// Establecer sombra y color de texto
-ctx.shadowColor = shadowColor;
-ctx.shadowBlur = 10;
-ctx.shadowOffsetX = 2;
-ctx.shadowOffsetY = 2;
+    ctx.shadowColor = shadowColor;
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    ctx.fillStyle = textoColor;
 
-ctx.fillStyle = textoColor;
-
-   // Posiciones por defecto
-  let nombreX = 500, nombreY = 300;
-  let deptoX = 500, deptoY = 395;
-  let phoneX = 20, phoneY = 410;
-  let emailX = 20, emailY = 460;
-
-  // Si la plantilla es CL2.png, cambiar posiciones
-  if (selectedTemplate === "CL2.png") {
-    nombreX = 800;
-    nombreY = 280;
-    deptoX = 800;
-    deptoY = 370;
-    phoneX = 1600;
-    phoneY = 405;
-    emailX = 1400;
-    emailY = 440;
-  }
+    let nombreX = 500, nombreY = 300;
+    let deptoX = 500, deptoY = 395;
+    let phoneX = 20, phoneY = 410;
 
 ctx.font = "110px 'Beatrice Extrabold'";
 ctx.fillText(fullname, nombreX, nombreY);
